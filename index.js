@@ -60,6 +60,28 @@ app.delete("/product/:id", async (req, resp) => {
     resp.send(result)
 })
 
+// get a single product api
+app.get("/product/:id", async (req, resp) => {
+    const result = await Product.findOne({ _id: req.params.id });
+    if (result) {
+        resp.send(result);
+
+    } else {
+        resp.send({ result: "No Product found" })
+    }
+})
+
+// product update api
+app.put("/product/:id", async (req, resp) => {
+    const result = await Product.updateOne(
+        { _id: req.params.id },
+        {
+            $set: req.body
+        }
+    )
+    resp.send(result);
+})
+
 
 
 
